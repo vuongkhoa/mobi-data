@@ -1,0 +1,110 @@
+version: "3.3"
+
+services:
+  discovery:
+    build: ./discovery
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8761:8761"
+    networks: 
+      - backend
+    expose:
+      - "8761"
+  purchase-service:
+    build: ./purchase-service
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8082:8082"
+    expose: 
+      - "8082"
+    networks: 
+      - backend
+      
+  gateway:
+    build: ./gateway
+    restart: always
+    depends_on:
+      - db
+      - discovery
+      - app-config
+    ports:
+      - "8080:8080"
+    expose: 
+      - "8080"
+    networks: 
+      - backend
+      
+  third-party-service:
+    build: ./third-party-service
+    restart: always
+    depends_on:
+      - db
+      - discovery
+      - app-config
+      - gateway 
+    ports:
+      - "8099:8099"
+    expose: 
+      - "8099"
+    networks: 
+      - backend
+      
+
+  voucher-service:
+    build: ./voucher-service
+    restart: always
+    depends_on:
+      - db
+      - discovery
+      - app-config
+      - gateway
+      - third-party-service
+    ports:
+      - "8081:8081"
+    expose:
+      - "8081"
+    networks: 
+      - backend
+      
+  app-config:
+    restart: always
+    build: ./app-config
+    depends_on:
+      - db
+      - discovery
+    ports:
+      - "8888:8888"
+    expose:
+      - "8888"
+    networks: 
+      - backend
+      
+  db:
+    image: mysql:5.7
+    # Uncomment this when using Docker Desktop for Mac M1 (ARM)
+    # platform: linux/x86_64
+    volumes:
+      - ./db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: p@ssword
+      MYSQL_PASSWORD: root
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./third-party-service/src/main/resources/db/voucher_db.sql:/docker-entrypoint-initdb.d/voucher.sql
+      - ./voucher-service/src/main/resources/db/mobile_data_dbscript.sql:/docker-entrypoint-initdb.d/simcard.sql
+    networks: 
+      - backend
+
+volumes:
+  db_data: {}
+
+networks: 
+  backend:

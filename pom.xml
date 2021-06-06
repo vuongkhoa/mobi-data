@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.abcbank</groupId>
+	<artifactId>mobile-data</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>mobile-data</name>
+	<packaging>pom</packaging>
+	<description>mobile-data-plan project for Spring Boot</description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<modules>
+		<module>app-config</module>
+		<module>gateway</module>
+		<module>discovery</module>
+		<module>purchase-service</module>
+		<module>voucher-service</module>
+		<module>third-party-service</module>
+	</modules>
+
+
+</project>

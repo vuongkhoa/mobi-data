@@ -1,0 +1,29 @@
+spring.main.allow-bean-definition-overriding: true
+
+health:
+  config:
+    enabled: false
+
+spring:
+  zipkin:
+    base-url: http://zipkin:9411
+    enabled: false
+  sleuth:
+    log.slf4j.whitelisted-mdc-keys: x-cid
+    propagation-keys: x-cid
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+gatewayService: http://gateway:9999
+vcMockEndpoint: http://mock-3rdvoucher-service:8080
+
+mysqlUrl: ${MYSQL_URL}
+mysqlPort: 3306

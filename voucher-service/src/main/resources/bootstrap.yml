@@ -1,0 +1,12 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: voucher-service
+
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URL:http://app-config:8888}
+      enabled: true

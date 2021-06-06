@@ -1,0 +1,19 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: discovery
+  cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URL:http://app-config:8888}
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+logging:
+  level:
+    com:
+      netflix:
+        eureka: OFF
+        discovery: OFF

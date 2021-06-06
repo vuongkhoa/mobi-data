@@ -1,0 +1,45 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: appconfig
+          uri: ${appConfigEndpoint}
+          predicates:
+            - Path=/appconfig/**
+          filters:
+#            Maybe don't need this because call directly to app-config from MSA
+            - RewritePath=/appconfig/voucher-service/(?<segment>.*), /voucher-service/$\{segment}
+            - RewritePath=/appconfig/third-party-service/(?<segment>.*), /third-party-service/$\{segment}
+
+        - id: purchaseservice
+          uri: ${purchaseServiceEndpoint}
+          predicates:
+            - Path=/purchase/**
+          filters:
+            - RewritePath=/purchase/(?<segment>.*), /$\{segment}
+
+        - id: voucherservice
+          uri: ${voucherServiceEndpoint}
+          predicates:
+            - Path=/voucher/**
+          filters:
+            - RewritePath=/voucher/(?<segment>.*), /$\{segment}
+
+        - id: thirdpartyservice
+          uri: ${thirdPartyServiceEndpoint}
+          predicates:
+            - Path=/3rd-party-service/**
+          filters:
+            - RewritePath=/3rd-party-service/(?<segment>.*), /$\{segment}
+
+        
+#         - id: zipkin
+#           uri: ${zipkinEndpoint}
+#           predicates:
+#             - Path=/zipkin/v2/**
+#           filters:
+#             - RewritePath=/zipkin/v2/(?<segment>.*), /$\{segment}
+
+
+
+

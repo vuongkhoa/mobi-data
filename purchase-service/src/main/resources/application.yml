@@ -1,0 +1,55 @@
+server:
+  port: 8082
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  zipkin:
+    enabled: false
+  cloud:
+    bus:
+      enabled: false
+
+  datasource:
+    url: jdbc:mysql://db:3306/simcard
+    username: root
+    password: p@ssword
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+# open api https://springdoc.github.io/springdoc-openapi-demos/springdoc-properties.html
+# set it to false to turn off
+springdoc:
+  api-docs:
+    enabled: true
+
+#application name in short (3 characters) (to be assigned in transaction ids)
+application-short-name: ps
+application-context-name: purchase-service
+springdoc.api-docs.path: /${application-context-name}/v2/api-docs
+logbook:
+  format:
+    style: json
+  filter:
+  body: secondField
+  exclude: [/swagger-ui.html]
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include=*:
+
+
+executor:
+  corePoolSize: 2
+  maxPoolSize: 5
+  queueCapacity: 10
+
+application:
+  allowedOrigins: http://localhost:8080

@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+
+Client -> PurchaseService: Get List Vouchers
+PurchaseService -> Client: List Vouchers
+...  ...
+Client -> VoucherService: Order Voucher (telco, price, dataPlan)
+VoucherService -> 3rdService: Request a voucher code(telco, price, dataPlan)
+3rdService --> 3rdService: Generate Voucher
+3rdService -> VoucherService: Voucher code
+VoucherService --> VoucherService: Save Voucher and PhoneNumber
+alt timeout < 5s
+   VoucherService -> Client: Return Voucher code
+else timeout > 5s
+   VoucherService -> Client: "Your code will be sent via SMS"
+end
+... ...
+@enduml

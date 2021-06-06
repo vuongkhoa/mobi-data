@@ -1,0 +1,29 @@
+server:
+  port: 8888
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://discovery:8761/eureka}
+  instance:
+#    hostname: ${HOST_NAME:${spring.application.name}}
+    preferIpAddress: true
+
+spring:
+  application:
+    name: app-config
+  profiles:
+    active: native
+
+  zipkin:
+    enabled: false
+
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations:
+            - classpath:config/
+            - classpath:config/voucher-service
+            - classpath:config/purchase-service
+            - classpath:config/third-party-service

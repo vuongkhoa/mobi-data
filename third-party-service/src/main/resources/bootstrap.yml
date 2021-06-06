@@ -1,0 +1,13 @@
+server:
+  port: 8099
+
+spring:
+  application:
+    name: third-party-service
+  profiles:
+    active: dev
+
+  cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URL:http://app-config:8888}
+      enabled: true

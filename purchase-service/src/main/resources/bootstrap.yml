@@ -1,0 +1,12 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: purchase-service
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URL:http://app-config:8888}
+      enabled: true

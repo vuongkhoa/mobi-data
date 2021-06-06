@@ -1,0 +1,14 @@
+<configuration>
+    <springProperty scope="context" name="springAppName" source="spring.application.name" defaultValue="-" />
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder >
+            <pattern>%d{HH:mm:ss.SSS} [${springAppName}] [%X{x-cid:-}] [%X{X-B3-TraceId:-}] [%X{X-B3-SpanId:-}] [%t] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.abcbank" additivity="false" level="DEBUG">
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="consoleAppender"/>
+    </root>
+</configuration>

@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: gateway-service
+  profiles:
+    active: routes
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 30000
+        response-timeout: 30s
+        wiretap: true
+      httpserver:
+        wiretap: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://discovery:8761/eureka}
+  instance:
+    #    hostname: ${HOST_NAME:${spring.application.name}}
+    preferIpAddress: true
+
+server:
+  port: 8080
+
+appConfigEndpoint: http://app-config:8888
+voucherServiceEndpoint: http://voucher-service:8081
+purchaseServiceEndpoint: http://purchase-service:8082
+thirdPartyServiceEndpoint: http://third-party-service:8099
+
+# zipkinEndpoint: http://zipkin:9411
+
+management:
+  endpoints:
+    web:
+     exposure:
+       include: '*'
+  endpoint:
+    gateway:
+      enabled: true
+#logging:
+#  level:
+#    reactor:
+#      netty: INFO
+#    org:
+#      springframework:
+#        cloud:
+#          gateway: TRACE

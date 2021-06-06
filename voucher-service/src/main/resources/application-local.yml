@@ -1,0 +1,36 @@
+server:
+  port: 8081
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/simcard_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    #    hostname: ${HOST_NAME:${spring.application.name}}
+    preferIpAddress: true
+
+application-short-name: vc
+application-context-name: voucher-service
+springdoc.api-docs.path: /${application-context-name}/v2/api-docs
+
+
+application:
+  allowedOrigins: http://localhost:8080
+
+endpoint:
+  internalApiUrl: http://localhost:8099
+  getVoucherUri: /api/v1/voucher
